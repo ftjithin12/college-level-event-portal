@@ -289,7 +289,8 @@ h3 {
 }
 
 .input-group input,
-.input-group select {
+.input-group select,
+.input-group textarea {
     width: 100%;
     padding: 12px 16px;
     border-radius: 12px;
@@ -301,7 +302,8 @@ h3 {
 }
 
 .input-group input:focus,
-.input-group select:focus {
+.input-group select:focus,
+.input-group textarea:focus {
     border-color: var(--primary);
     background: white;
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
@@ -427,7 +429,10 @@ h3 {
 
 .table-container {
     padding: 0;
-    overflow: hidden;
+    width: 100%;
+    overflow-x: auto;
+    /* Updated for responsive tables */
+    -webkit-overflow-scrolling: touch;
 }
 
 .table-header {
@@ -436,11 +441,15 @@ h3 {
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    min-width: 600px;
+    /* Ensure header doesn't squash mainly */
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
+    min-width: 600px;
+    /* Force table width to trigger scroll on small screens */
 }
 
 th,
@@ -543,6 +552,8 @@ td {
         flex-direction: column;
         overflow-y: auto;
         height: auto;
+        padding-bottom: 90px;
+        /* More bottom padding */
     }
 
     .sidebar {
@@ -553,14 +564,16 @@ td {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        padding: 16px;
-        border-radius: 0 0 16px 16px;
-        margin-bottom: 20px;
+        padding: 16px 20px;
+        border-radius: 0 0 20px 20px;
+        margin-bottom: 24px;
+        background: rgba(255, 255, 255, 0.85);
+        /* More opaque for readability */
     }
 
     .sidebar .logo {
         margin-bottom: 0;
-        font-size: 1.2rem;
+        font-size: 1.4rem;
     }
 
     .nav-links {
@@ -568,32 +581,61 @@ td {
         /* Mobile menu needed or simplify */
     }
 
-    /* For simple demo, keeping it simple: just icons on mobile or stick to desktop-first logic but readable */
+    /* Bottom Navigation Bar */
     .nav-links {
         position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background: white;
-        z-index: 100;
+        bottom: 20px;
+        /* Floating look */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 400px;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        z-index: 1000;
         display: flex;
-        justify-content: space-around;
-        padding: 10px;
+        justify-content: space-between;
+        padding: 12px 24px;
         margin: 0;
-        box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
-        border-radius: 16px 16px 0 0;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 24px;
     }
 
     .nav-links li {
         flex-direction: column;
-        gap: 4px;
+        gap: 6px;
         font-size: 0.7rem;
         padding: 8px;
         margin: 0;
+        border-radius: 12px;
+    }
+
+    .nav-links li.active {
+        background: var(--primary);
+        color: white;
+        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    }
+
+    .nav-links li.active:hover {
+        background: var(--primary);
+    }
+
+    .nav-links li i {
+        font-size: 1.4rem;
     }
 
     .nav-links li span {
+        display: none;
+        /* Hide text on mobile for cleaner look, icons only? Or keep text nicely */
+        /* Let's keep icons only for 5 items to fit, or very small text.
+           With 5 items (Register, Judges, Admin, Venue, Feedback), text usually overflows.
+           Let's hide text on very small screens or keep it if it fits. 
+           Let's try to keep it but smaller.
+        */
         display: block;
+        font-size: 0.6rem;
     }
 
     .user-profile {
@@ -601,7 +643,7 @@ td {
     }
 
     .main-content {
-        padding-bottom: 80px;
+        padding-bottom: 0;
     }
 
     /* Space for navbar */
@@ -623,7 +665,8 @@ td {
     height: 100%;
     background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(4px);
-    z-index: 1000;
+    z-index: 2000;
+    /* Higher than nav */
     display: none;
     align-items: center;
     justify-content: center;
@@ -637,7 +680,8 @@ td {
 }
 
 .login-card {
-    width: 100%;
+    width: 90%;
+    /* Mobile friendly */
     max-width: 400px;
     background: white;
     /* slightly more solid for readability */

@@ -548,9 +548,16 @@ td {
 }
 
 @media (max-width: 768px) {
+    body {
+        overflow: auto;
+        /* Enable global scrolling */
+        height: auto;
+    }
+
     .app-container {
         flex-direction: column;
-        overflow-y: auto;
+        overflow-y: visible;
+        /* Let body handle scroll */
         height: auto;
         padding-bottom: 90px;
         /* More bottom padding for bottom nav */

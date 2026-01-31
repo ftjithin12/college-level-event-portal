@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Event Portal</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons (Phosphor Icons) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar glass-panel">
+            <div class="logo">
+                <i class="ph-fill ph-graduation-cap"></i>
+                <span>Event<span class="highlight">Hub</span></span>
+            </div>
+
+            <ul class="nav-links">
+                <li class="active" data-target="registration">
+                    <i class="ph ph-ticket"></i>
+                    <span>Register</span>
+                </li>
+                <li data-target="judges-winners">
+                    <i class="ph ph-trophy"></i>
+                    <span>Judges & Winners</span>
+                </li>
+                <li data-target="admin">
+                    <i class="ph ph-squares-four"></i>
+                    <span>Admin Dashboard</span>
+                </li>
+                <li data-target="contact">
+                    <i class="ph ph-map-pin"></i>
+                    <span>Venue & Contact</span>
+                </li>
+                <li data-target="feedback">
+                    <i class="ph ph-chat-text"></i>
+                    <span>Feedback</span>
+                </li>
+            </ul>
+
+            <div class="user-profile">
+                <div class="avatar">JS</div>
+                <div class="info">
+                    <span class="name">John Student</span>
+                    <span class="role">Coordinator</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+
+            <!-- PAGE: REGISTRATION -->
+            <section id="registration" class="page active">
+                <header class="page-header">
+                    <h1>Event Registration</h1>
+                    <p>Join the biggest tech fest of the year.</p>
+                </header>
+
+                <div class="content-grid two-columns">
+                    <div class="glass-card hero-card">
+                        <div class="badge">Tech Fest 2026</div>
+                        <h2>Innovate & Inspire</h2>
+                        <p>Showcase your skills in coding, design, and robotics. Compete with the best minds across the
+                            country.</p>
+
+                        <div class="event-details">
+                            <div class="detail-item">
+                                <i class="ph ph-calendar-blank"></i>
+                                <span>March 15-18, 2026</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="ph ph-clock"></i>
+                                <span>10:00 AM Onwards</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form class="glass-card registration-form"
+                        onsubmit="event.preventDefault(); alert('Registration Submitted!');">
+                        <h3>Sign Up Now</h3>
+
+                        <div class="input-group">
+                            <label>Full Name</label>
+                            <input type="text" placeholder="e.g. Alex Doe" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Email Address</label>
+                            <input type="email" placeholder="alex@college.edu" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Branch</label>
+                            <select required>
+                                <option value="" disabled selected>Select Branch</option>
+                                <option value="Mechanical Engineering">Mechanical Engineering</option>
+                                <option value="Electrical and Communication Engineering">Electrical and Communication
+                                    Engineering</option>
+                                <option value="Computer Hardware Engineering">Computer Hardware Engineering</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Semester</label>
+                            <select required>
+                                <option value="" disabled selected>Select Semester</option>
+                                <option value="1">Semester 1</option>
+                                <option value="2">Semester 2</option>
+                                <option value="3">Semester 3</option>
+                                <option value="4">Semester 4</option>
+                                <option value="5">Semester 5</option>
+                                <option value="6">Semester 6</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Phone Number</label>
+                            <input type="tel" placeholder="+1 (555) 000-0000" pattern="[0-9\+\-\s]{10,}" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Select Event</label>
+                            <select>
+                                <option>Hackathon</option>
+                                <option>RoboWar</option>
+                                <option>UI/UX Design</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn-primary">
+                            Register <i class="ph-bold ph-arrow-right"></i>
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+
+            <!-- PAGE: JUDGES & WINNERS -->
+            <section id="judges-winners" class="page">
+                <header class="page-header">
+                    <h1>Judges & Winners</h1>
+                    <p>Meet the experts and the champions.</p>
+                </header>
+
+                <div class="split-view">
+                    <!-- Left: Judges -->
+                    <div class="column judges-column">
+                        <h2 class="section-title"><i class="ph-fill ph-gavel"></i> Panel of Judges</h2>
+
+                        <div class="card-stack">
+                            <div class="glass-card person-card">
+                                <div class="img-placeholder gradient-1"></div>
+                                <div>
+                                    <h3>Dr. Sarah Connor</h3>
+                                    <p class="role">AI Researcher</p>
+                                </div>
+                            </div>
+                            <div class="glass-card person-card">
+                                <div class="img-placeholder gradient-2"></div>
+                                <div>
+                                    <h3>Prof. Alan Grant</h3>
+                                    <p class="role">Software Architect</p>
+                                </div>
+                            </div>
+                            <div class="glass-card person-card">
+                                <div class="img-placeholder gradient-3"></div>
+                                <div>
+                                    <h3>Emily Chen</h3>
+                                    <p class="role">Product Designer, Google</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Winners (Highlighted) -->
+                    <div class="column winners-column">
+                        <h2 class="section-title"><i class="ph-fill ph-medal"></i> Hall of Fame</h2>
+
+                        <div class="winner-card glass-card box-shadow-glow">
+                            <div class="crown-icon"><i class="ph-fill ph-crown"></i></div>
+                            <div class="winner-info">
+                                <span class="position">1st Place</span>
+                                <h3>Team Alpha</h3>
+                                <p>Project: "EcoSync"</p>
+                            </div>
+                            <div class="prize-tag">$10,000</div>
+                        </div>
+
+                        <div class="winner-card glass-card">
+                            <div class="winner-info">
+                                <span class="position">2nd Place</span>
+                                <h3>Code Breakers</h3>
+                                <p>Project: "HealthAI"</p>
+                            </div>
+                            <div class="prize-tag">$5,000</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- PAGE: ADMIN DASHBOARD -->
+            <section id="admin" class="page">
+                <header class="page-header">
+                    <h1>Dashboard</h1>
+                    <p>Manage registrations and event logistics.</p>
+                </header>
+
+                <div class="stats-row">
+                    <div class="glass-card stat-card">
+                        <span class="label">Total Registrations</span>
+                        <div class="value">124</div>
+                    </div>
+                    <div class="glass-card stat-card">
+                        <span class="label">Pending Review</span>
+                        <div class="value">12</div>
+                    </div>
+                    <div class="glass-card stat-card">
+                        <span class="label">Events Active</span>
+                        <div class="value">5</div>
+                    </div>
+                </div>
+
+                <div class="glass-card table-container">
+                    <div class="table-header">
+                        <h3>Recent Registrations</h3>
+                        <button class="btn-sm">Export CSV</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Event</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Michael Scott</td>
+                                <td>Hackathon</td>
+                                <td>Oct 24</td>
+                                <td><span class="tag success">Confirmed</span></td>
+                                <td><button class="icon-btn"><i class="ph ph-trash"></i></button></td>
+                            </tr>
+                            <tr>
+                                <td>Dwight Schrute</td>
+                                <td>RoboWar</td>
+                                <td>Oct 24</td>
+                                <td><span class="tag pending">Pending</span></td>
+                                <td><button class="icon-btn"><i class="ph ph-trash"></i></button></td>
+                            </tr>
+                            <tr>
+                                <td>Jim Halpert</td>
+                                <td>UI Design</td>
+                                <td>Oct 23</td>
+                                <td><span class="tag success">Confirmed</span></td>
+                                <td><button class="icon-btn"><i class="ph ph-trash"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+
+            <!-- PAGE: VENUE & CONTACT -->
+            <section id="contact" class="page">
+                <header class="page-header">
+                    <h1>Venue & Contact</h1>
+                    <p>Get in touch or find your way.</p>
+                </header>
+
+                <div class="contact-grid">
+                    <div class="glass-card contact-card">
+                        <div class="icon-circle"><i class="ph-fill ph-map-pin"></i></div>
+                        <h3>Location</h3>
+                        <p>Central University Campus<br>Main Auditorium, Block C</p>
+                    </div>
+
+                    <div class="glass-card contact-card">
+                        <div class="icon-circle"><i class="ph-fill ph-phone"></i></div>
+                        <h3>Phone</h3>
+                        <p>+1 (555) 123-4567<br>Mon-Fri, 9am - 5pm</p>
+                    </div>
+
+                    <div class="glass-card contact-card">
+                        <div class="icon-circle"><i class="ph-fill ph-envelope"></i></div>
+                        <h3>Email</h3>
+                        <p>events@university.edu<br>support@university.edu</p>
+                    </div>
+                </div>
+
+                <div class="glass-card map-placeholder">
+                    <span>Interactive Map Widget</span>
+                </div>
+            </section>
+
+            <!-- PAGE: FEEDBACK -->
+            <section id="feedback" class="page">
+                <header class="page-header">
+                    <h1>Feedback & Support</h1>
+                    <p>Let us know what you think or report an issue.</p>
+                </header>
+
+                <div class="glass-card" style="max-width: 600px; margin: 0 auto;">
+                    <form onsubmit="event.preventDefault(); alert('Feedback Submitted! Thank you.');">
+                        <h3 style="margin-bottom: 24px;">Submit Feedback</h3>
+
+                        <div class="input-group">
+                            <label>Feedback Type</label>
+                            <select required>
+                                <option value="Opinion">Opinion / Suggestion</option>
+                                <option value="Complaint">Complaint</option>
+                                <option value="Issue">Technical Issue</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Subject</label>
+                            <input type="text" placeholder="Brief summary" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Details</label>
+                            <textarea placeholder="Describe your feedback here..." rows="5"
+                                style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.1); background: rgba(255,255,255,0.5); outline: none;"
+                                required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-primary">
+                            Submit Feedback <i class="ph-bold ph-paper-plane-right"></i>
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- LOGIN MODAL -->
+    <div id="login-modal" class="modal-overlay">
+        <div class="glass-card login-card">
+            <div class="modal-header">
+                <h2>Admin Access</h2>
+                <p>Please enter your credentials.</p>
+            </div>
+            <form id="login-form">
+                <div class="input-group">
+                    <label>Username</label>
+                    <input type="text" id="username" placeholder="admin" required>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="••••••" required>
+                </div>
+                <p id="login-error" class="error-msg"></p>
+                <div class="modal-actions">
+                    <button type="button" class="btn-text" id="close-login">Cancel</button>
+                    <button type="submit" class="btn-primary">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

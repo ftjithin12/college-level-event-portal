@@ -74,6 +74,11 @@ h3 {
     color: var(--primary);
 }
 
+.reload-trigger {
+    display: none;
+    /* Hidden by default on desktop, or show if desired */
+}
+
 .nav-links {
     list-style: none;
     flex: 1;
@@ -581,6 +586,19 @@ td {
     .sidebar .logo {
         margin-bottom: 0;
         font-size: 1.4rem;
+    }
+
+    /* Reload Button on Mobile */
+    .reload-trigger {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        color: var(--primary);
     }
 
     /* Bottom Navigation Bar - Docked Mode */

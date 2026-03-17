@@ -96,23 +96,22 @@
                         </div>
                    </div> -->
 
-                    <form class="glass-card registration-form"
-                        onsubmit="event.preventDefault(); alert('Registration Submitted!');">
+                    <form id="registrationForm" class="glass-card registration-form">
                         <h3>Sign Up Now</h3>
 
                         <div class="input-group">
                             <label>Full Name</label>
-                            <input type="text" placeholder="e.g. Alex Doe" required>
+                            <input type="text" name="fullName" placeholder="e.g. Alex Doe" required>
                         </div>
 
                         <div class="input-group">
                             <label>Email Address</label>
-                            <input type="email" placeholder="alex@college.edu" required>
+                            <input type="email" name="email" placeholder="alex@college.edu" required>
                         </div>
 
                         <div class="input-group">
                             <label>Branch</label>
-                            <select required>
+                            <select name="branch" required>
                                 <option value="" disabled selected>Select Branch</option>
                                 <option value="Mechanical Engineering">Mechanical Engineering</option>
                                 <option value="Electrical and Communication Engineering">Electrical and Communication
@@ -123,7 +122,7 @@
 
                         <div class="input-group">
                             <label>Semester</label>
-                            <select required>
+                            <select name="semester" required>
                                 <option value="" disabled selected>Select Semester</option>
                                 <option value="1">Semester 1</option>
                                 <option value="2">Semester 2</option>
@@ -136,15 +135,15 @@
 
                         <div class="input-group">
                             <label>Phone Number</label>
-                            <input type="tel" placeholder="+1 (555) 000-0000" pattern="[0-9\+\-\s]{10,}" required>
+                            <input type="tel" name="phone" placeholder="+1 (555) 000-0000" pattern="[0-9\+\-\s]{10,}" required>
                         </div>
 
                         <div class="input-group">
                             <label>Select Event</label>
-                            <select>
-                                <option>Hackathon</option>
-                                <option>RoboWar</option>
-                                <option>UI/UX Design</option>
+                            <select name="event">
+                                <option value="Hackathon">Hackathon</option>
+                                <option value="RoboWar">RoboWar</option>
+                                <option value="UI/UX Design">UI/UX Design</option>
                             </select>
                         </div>
 
@@ -325,12 +324,12 @@
                 </header>
 
                 <div class="glass-card" style="max-width: 600px; margin: 0 auto;">
-                    <form onsubmit="event.preventDefault(); alert('Feedback Submitted! Thank you.');">
+                    <form id="feedbackForm">
                         <h3 style="margin-bottom: 24px;">Submit Feedback</h3>
 
                         <div class="input-group">
                             <label>Feedback Type</label>
-                            <select required>
+                            <select name="feedbackType" required>
                                 <option value="Opinion">Opinion / Suggestion</option>
                                 <option value="Complaint">Complaint</option>
                                 <option value="Issue">Technical Issue</option>
@@ -340,12 +339,12 @@
 
                         <div class="input-group">
                             <label>Subject</label>
-                            <input type="text" placeholder="Brief summary" required>
+                            <input type="text" name="subject" placeholder="Brief summary" required>
                         </div>
 
                         <div class="input-group">
                             <label>Details</label>
-                            <textarea placeholder="Describe your feedback here..." rows="5"
+                            <textarea name="details" placeholder="Describe your feedback here..." rows="5"
                                 style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.1); background: rgba(255,255,255,0.5); outline: none;"
                                 required></textarea>
                         </div>

@@ -314,6 +314,12 @@ function fetchFeedback() {
             const container = document.getElementById('feedback-list');
             if (!container) return;
             container.innerHTML = '';
+            
+            if (!data.data || data.data.length === 0) {
+                container.innerHTML = '<p style="padding: 1rem; color: var(--text-muted); text-align: center;">No feedback has been submitted yet.</p>';
+                return;
+            }
+
             data.data.forEach(item => {
                 container.innerHTML += `
                     <div style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.05);">
@@ -321,7 +327,8 @@ function fetchFeedback() {
                             <strong>${item.subject}</strong>
                             <span class="tag pending">${item.type}</span>
                         </div>
-                        <p style="font-size: 0.9rem; color: var(--text-muted);">${item.details}</p>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin:0;">${item.details}</p>
+                        <small style="color: var(--text-muted); display:block; margin-top: 0.5rem;">${item.created_at}</small>
                     </div>
                 `;
             });

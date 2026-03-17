@@ -1,5 +1,5 @@
 <?php
-// api/get_registrations.php
+// api/get_feedback.php
 session_start();
 header('Content-Type: application/json');
 
@@ -11,21 +11,17 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
 
 include 'db_connect.php';
 
-$sql = "SELECT * FROM registrations ORDER BY created_at DESC";
+$sql = "SELECT * FROM feedback ORDER BY created_at DESC";
 $result = $conn->query($sql);
 
-$registrations = [];
-
+$feedbacks = [];
 if ($result && $result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
-        $registrations[] = $row;
+        $feedbacks[] = $row;
     }
 }
 
-echo json_encode([
-    'status' => 'success',
-    'data' => $registrations
-]);
+echo json_encode(['status' => 'success', 'data' => $feedbacks]);
 
 $conn->close();
 ?>

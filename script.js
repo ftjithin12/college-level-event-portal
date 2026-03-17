@@ -61,28 +61,73 @@ loginModal.addEventListener('click', (e) => {
     if (e.target === loginModal) closeLoginModal();
 });
 
-// Mock Auth
+// Real Auth via API
 loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
+    
+    const submitBtn = loginForm.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = 'Logging in...';
+    submitBtn.disabled = true;
 
-    if (username === 'admin' && password === 'admin123') {
-        isLoggedIn = true;
-        closeLoginModal();
+    fetch('api/login.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
+    })
+    .then(response => response.json())
+    .then(data => {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
 
-        // Resume navigation to Admin
-        if (pendingTarget) {
-            const targetId = pendingTarget.getAttribute('data-target');
-            navigateTo(targetId);
-            updateActiveNav(pendingTarget);
+        if (data.status === 'success') {
+            isLoggedIn = true;
+            closeLoginModal();
+
+            // Resume navigation to Admin
+            if (pendingTarget) {
+                const targetId = pendingTarget.getAttribute('data-target');
+                navigateTo(targetId);
+                updateActiveNav(pendingTarget);
+                
+                // Fetch fresh data when entering admin panel
+                fetchDashboardData();
+            }
+        } else {
+            loginError.textContent = data.message || 'Invalid credentials';
         }
-
-        alert('Welcome Admin!');
-    } else {
-        loginError.textContent = 'Invalid credentials (try admin / admin123)';
-    }
+    })
+    .catch(error => {
+        console.error('Error logging in:', error);
+        loginError.textContent = 'Server error. Try again.';
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    });
 });
+
+// Check Session on Load
+function checkSession() {
+    fetch('api/check_auth.php')
+    .then(res => res.json())
+    .then(data => {
+        isLoggedIn = data.authenticated;
+    })
+    .catch(err => console.error('Error checking session:', err));
+}
+
+// Call on load
+document.addEventListener('DOMContentLoaded', checkSession);
+
+// Updated Admin data fetcher (Calls stats, registrations, and feedback)
+function fetchDashboardData() {
+    fetchRegistrations();
+    fetchStats();
+    fetchFeedback();
+}
 
 // --- API Integrations ---
 
@@ -164,16 +209,21 @@ if (feedbackForm) {
 // Fetch Registrations for Admin Dashboard
 function fetchRegistrations() {
     fetch('api/get_registrations.php')
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) throw new Error('Unauthorized');
+        return response.json();
+    })
     .then(data => {
         if (data.status === 'success') {
             const tableBody = document.querySelector('.table-container tbody');
             if (!tableBody) return;
             
-            tableBody.innerHTML = ''; // Clear existing rows
+            tableBody.innerHTML = '';
             
             data.data.forEach(reg => {
                 const tr = document.createElement('tr');
+                const statusClass = reg.status === 'Confirmed' ? 'success' : 'pending';
+                
                 tr.innerHTML = `
                     <td>
                         <div style="font-weight: 500">${reg.full_name}</div>
@@ -182,23 +232,108 @@ function fetchRegistrations() {
                     <td>${reg.branch}</td>
                     <td>${reg.event_id}</td>
                     <td>
-                        <span class="tag success">Registered</span>
+                        <span class="tag ${statusClass}">${reg.status}</span>
                     </td>
                     <td>
-                        <button class="icon-btn" title="Edit"><i class="ph ph-pencil-simple"></i></button>
-                        <button class="icon-btn" title="Delete"><i class="ph ph-trash"></i></button>
+                        <button class="icon-btn" title="Toggle Status" onclick="toggleStatus(${reg.id}, '${reg.status}')"><i class="ph ph-arrows-left-right"></i></button>
+                        <button class="icon-btn" title="Delete" onclick="deleteReg(${reg.id})"><i class="ph ph-trash"></i></button>
                     </td>
                 `;
                 tableBody.appendChild(tr);
             });
-            
-            // Optionally update stats cards (Total Registrations)
-             const totalRegElement = document.getElementById('stat-total-reg');
-             if(totalRegElement) {
-                 totalRegElement.textContent = data.data.length;
-             }
         }
     })
-    .catch(error => console.error('Error fetching registrations:', error));
+    .catch(error => {
+        if(error.message === 'Unauthorized') {
+             isLoggedIn = false;
+             navigateTo('registration');
+        }
+        console.error('Error:', error);
+    });
 }
 
+function fetchStats() {
+    fetch('api/get_stats.php')
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === 'success') {
+            document.getElementById('stat-total-reg').textContent = data.data.total_registrations;
+            document.getElementById('stat-pending-rev').textContent = data.data.pending_review;
+            document.getElementById('stat-total-feedback').textContent = data.data.total_feedback;
+        }
+    })
+    .catch(err => console.error(err));
+}
+
+function toggleStatus(id, currentStatus) {
+    const newStatus = currentStatus === 'Pending' ? 'Confirmed' : 'Pending';
+    fetch('api/update_status.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ id, status: newStatus })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data.status === 'success') {
+            fetchDashboardData();
+        } else {
+            alert(data.message);
+        }
+    });
+}
+
+function deleteReg(id) {
+    if(!confirm('Are you sure you want to delete this registration?')) return;
+    
+    fetch('api/delete_registration.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ id })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data.status === 'success') {
+            fetchDashboardData();
+        } else {
+            alert(data.message);
+        }
+    });
+}
+
+// Placeholder for Feedback fetching (needs HTML container to render)
+function fetchFeedback() {
+    fetch('api/get_feedback.php')
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === 'success') {
+            const container = document.getElementById('feedback-list');
+            if (!container) return;
+            container.innerHTML = '';
+            data.data.forEach(item => {
+                container.innerHTML += `
+                    <div style="padding: 1rem; border-bottom: 1px solid rgba(0,0,0,0.05);">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <strong>${item.subject}</strong>
+                            <span class="tag pending">${item.type}</span>
+                        </div>
+                        <p style="font-size: 0.9rem; color: var(--text-muted);">${item.details}</p>
+                    </div>
+                `;
+            });
+        }
+    });
+}
+
+// Logout
+const logoutBtn = document.getElementById('logout-btn');
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+        fetch('api/logout.php')
+        .then(() => {
+            isLoggedIn = false;
+            alert('Logged out successfully');
+            navigateTo('registration');
+            updateActiveNav(document.querySelector('[data-target="registration"]'));
+        });
+    });
+}

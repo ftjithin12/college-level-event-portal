@@ -164,9 +164,23 @@
                 <div class="stats-row">
                     <div class="glass-card stat-card">
                         <span class="label">Total Registrations</span>
-                        <div class="value">124</div>
+                        <div class="value" id="stat-total-reg">0</div>
                     </div>
                     <div class="glass-card stat-card">
+                        <span class="label">Pending Review</span>
+                        <div class="value" id="stat-pending-rev">0</div>
+                    </div>
+                    <div class="glass-card stat-card">
+                        <span class="label">Total Feedback</span>
+                        <div class="value" id="stat-total-feedback">0</div>
+                    </div>
+                </div>
+
+                <div class="glass-card table-container" style="margin-bottom: 2rem;">
+                    <div class="table-header">
+                        <h3>Recent Registrations</h3>
+                        <button class="btn-sm" id="logout-btn">Logout</button>
+                    </div>
                         <span class="label">Pending Review</span>
                         <div class="value">12</div>
                     </div>
@@ -214,7 +228,17 @@
                                 <td><button class="icon-btn"><i class="ph ph-trash"></i></button></td>
                             </tr>
                         </tbody>
+                        </tbody>
                     </table>
+                </div>
+
+                <div class="glass-card" style="margin-bottom: 2rem;">
+                    <div class="table-header">
+                        <h3>Recent Feedback</h3>
+                    </div>
+                    <div id="feedback-list" style="max-height: 400px; overflow-y: auto;">
+                        <p style="padding: 1rem; color: var(--text-muted);">Loading feedback...</p>
+                    </div>
                 </div>
             </section>
 

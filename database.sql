@@ -1,6 +1,14 @@
 CREATE DATABASE IF NOT EXISTS `event_portal`;
 USE `event_portal`;
 
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) NOT NULL UNIQUE,
+  `password_hash` varchar(255) NOT NULL,
+  `created_at` timestamp DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 CREATE TABLE IF NOT EXISTS `registrations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `full_name` varchar(255) NOT NULL,
@@ -9,6 +17,7 @@ CREATE TABLE IF NOT EXISTS `registrations` (
   `semester` int(11) NOT NULL,
   `phone` varchar(20) NOT NULL,
   `event_id` varchar(100) NOT NULL,
+  `status` enum('Pending', 'Confirmed') DEFAULT 'Pending',
   `created_at` timestamp DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

@@ -176,53 +176,55 @@
                     </div>
                 </div>
 
-                <div class="glass-card table-container" style="margin-bottom: 2rem;">
-                    <div class="table-header">
-                        <h3>Recent Registrations</h3>
-                        <button class="btn-sm" id="logout-btn">Logout</button>
+                <div class="dashboard-split">
+                    <div class="glass-card table-container" style="margin-bottom: 2rem;">
+                        <div class="table-header">
+                            <h3>Recent Registrations</h3>
+                            <button class="btn-sm" id="logout-btn">Logout</button>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Event</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Michael Scott</td>
+                                    <td>Hackathon</td>
+                                    <td>Oct 24</td>
+                                    <td><span class="tag success">Confirmed</span></td>
+                                    <td><button class="icon-btn"><i class="ph ph-trash"></i></button></td>
+                                </tr>
+                                <tr>
+                                    <td>Dwight Schrute</td>
+                                    <td>RoboWar</td>
+                                    <td>Oct 24</td>
+                                    <td><span class="tag pending">Pending</span></td>
+                                    <td><button class="icon-btn"><i class="ph ph-trash"></i></button></td>
+                                </tr>
+                                <tr>
+                                    <td>Jim Halpert</td>
+                                    <td>UI Design</td>
+                                    <td>Oct 23</td>
+                                    <td><span class="tag success">Confirmed</span></td>
+                                    <td><button class="icon-btn"><i class="ph ph-trash"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Event</th>
-                                <th>Date</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Michael Scott</td>
-                                <td>Hackathon</td>
-                                <td>Oct 24</td>
-                                <td><span class="tag success">Confirmed</span></td>
-                                <td><button class="icon-btn"><i class="ph ph-trash"></i></button></td>
-                            </tr>
-                            <tr>
-                                <td>Dwight Schrute</td>
-                                <td>RoboWar</td>
-                                <td>Oct 24</td>
-                                <td><span class="tag pending">Pending</span></td>
-                                <td><button class="icon-btn"><i class="ph ph-trash"></i></button></td>
-                            </tr>
-                            <tr>
-                                <td>Jim Halpert</td>
-                                <td>UI Design</td>
-                                <td>Oct 23</td>
-                                <td><span class="tag success">Confirmed</span></td>
-                                <td><button class="icon-btn"><i class="ph ph-trash"></i></button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
 
-                <div class="glass-card" style="margin-bottom: 2rem;">
-                    <div class="table-header">
-                        <h3>Recent Feedback</h3>
-                    </div>
-                    <div id="feedback-list" style="max-height: 400px; overflow-y: auto;">
-                        <p style="padding: 1rem; color: var(--text-muted);">Loading feedback...</p>
+                    <div class="glass-card" style="margin-bottom: 2rem;">
+                        <div class="table-header">
+                            <h3>Recent Feedback</h3>
+                        </div>
+                        <div id="feedback-list" style="max-height: 400px; overflow-y: auto;">
+                            <p style="padding: 1rem; color: var(--text-muted);">Loading feedback...</p>
+                        </div>
                     </div>
                 </div>
             </section>

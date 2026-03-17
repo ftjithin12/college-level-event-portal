@@ -415,6 +415,13 @@ h3 {
     margin-bottom: 32px;
 }
 
+.dashboard-split {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
 .stat-card {
     padding: 20px;
 }
@@ -438,6 +445,7 @@ h3 {
     overflow-x: auto;
     /* Updated for responsive tables */
     -webkit-overflow-scrolling: touch;
+    margin-bottom: 0 !important; /* Override inline margin inside split */
 }
 
 .table-header {
@@ -543,11 +551,14 @@ td {
 @media (max-width: 1024px) {
 
     .two-columns,
-    .split-view {
+    .split-view,
+    .dashboard-split {
         flex-direction: column;
     }
 
-    .two-columns {
+    .two-columns,
+    .dashboard-split {
+        display: flex; /* Override grid */
         grid-template-columns: 1fr;
     }
 }

@@ -24,6 +24,11 @@ navItems.forEach(item => {
 
         navigateTo(targetId);
         updateActiveNav(item);
+        
+        // Fetch dashboard data when entering the admin tab
+        if (targetId === 'admin' && isLoggedIn) {
+            fetchDashboardData();
+        }
     });
 });
 

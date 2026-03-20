@@ -77,7 +77,7 @@ loginForm.addEventListener('submit', (e) => {
     submitBtn.innerHTML = 'Logging in...';
     submitBtn.disabled = true;
 
-    fetch('api/login.php', {
+    fetch('api/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -116,7 +116,7 @@ loginForm.addEventListener('submit', (e) => {
 
 // Check Session on Load
 function checkSession() {
-    fetch('api/check_auth.php')
+    fetch('api/check_auth')
     .then(res => res.json())
     .then(data => {
         isLoggedIn = data.authenticated;
@@ -147,10 +147,12 @@ if (registrationForm) {
         btn.disabled = true;
 
         const formData = new FormData(this);
+        const payload = Object.fromEntries(formData);
 
-        fetch('api/register.php', {
+        fetch('api/register', {
             method: 'POST',
-            body: formData
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
         })
         .then(response => response.json())
         .then(data => {
@@ -185,10 +187,12 @@ if (feedbackForm) {
         btn.disabled = true;
 
         const formData = new FormData(this);
+        const payload = Object.fromEntries(formData);
 
-        fetch('api/submit_feedback.php', {
+        fetch('api/submit_feedback', {
             method: 'POST',
-            body: formData
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
         })
         .then(response => response.json())
         .then(data => {
@@ -213,7 +217,7 @@ if (feedbackForm) {
 
 // Fetch Registrations for Admin Dashboard
 function fetchRegistrations() {
-    fetch('api/get_registrations.php')
+    fetch('api/get_registrations')
     .then(response => {
         if (!response.ok) throw new Error('Unauthorized');
         return response.json();
@@ -258,7 +262,7 @@ function fetchRegistrations() {
 }
 
 function fetchStats() {
-    fetch('api/get_stats.php')
+    fetch('api/get_stats')
     .then(res => res.json())
     .then(data => {
         if (data.status === 'success') {
@@ -272,7 +276,7 @@ function fetchStats() {
 
 function toggleStatus(id, currentStatus) {
     const newStatus = currentStatus === 'Pending' ? 'Confirmed' : 'Pending';
-    fetch('api/update_status.php', {
+    fetch('api/update_status', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ id, status: newStatus })
@@ -290,7 +294,7 @@ function toggleStatus(id, currentStatus) {
 function deleteReg(id) {
     if(!confirm('Are you sure you want to delete this registration?')) return;
     
-    fetch('api/delete_registration.php', {
+    fetch('api/delete_registration', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ id })
@@ -307,7 +311,7 @@ function deleteReg(id) {
 
 // Placeholder for Feedback fetching (needs HTML container to render)
 function fetchFeedback() {
-    fetch('api/get_feedback.php')
+    fetch('api/get_feedback')
     .then(res => res.json())
     .then(data => {
         if (data.status === 'success') {
@@ -340,7 +344,7 @@ function fetchFeedback() {
 const logoutBtn = document.getElementById('logout-btn');
 if (logoutBtn) {
     logoutBtn.addEventListener('click', () => {
-        fetch('api/logout.php')
+        fetch('api/logout')
         .then(() => {
             isLoggedIn = false;
             alert('Logged out successfully');
